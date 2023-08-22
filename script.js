@@ -13,11 +13,31 @@ function addBookToLibrary(title, author, year, pages, language, edition) {
     myLibrary.push(newBook);
 }
 
+function submitForm(event) {
+    event.preventDefault();
+    var title = document.getElementById("title").value;
+    var author = document.getElementById("author").value;
+    var year = document.getElementById("year").value;
+    var pages = document.getElementById("pages").value;
+    var language = document.getElementById("languange").value;
+    var edition = document.getElementById("edition").value;
+
+    addBookToLibrary(title, author, year, pages, language, edition);
+    displayListOfBooks();
+    console.table(myLibrary);
+}
+
+var form = document.getElementById("addBook");
+form.addEventListener("submit", submitForm);
+
 addBookToLibrary("example", "example", 1000, 250, "example", "example")
 
 
 function displayListOfBooks(){
     const table = document.getElementById("data-table")
+    while (table.firstChild) {
+        table.removeChild(table.firstChild);
+    }
     for (const book of myLibrary) {
         const newRow = table.insertRow();
         const titleCell = newRow.insertCell(0);
