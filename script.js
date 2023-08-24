@@ -34,7 +34,8 @@ addBookToLibrary("example", "example", 1000, 250, "example", "example")
 
 
 function displayListOfBooks(){
-    const table = document.getElementById("data-table")
+    const table = document.getElementById("data-table");
+    var i = 0;
     while (table.firstChild) {
         table.removeChild(table.firstChild);
     }
@@ -46,6 +47,7 @@ function displayListOfBooks(){
         const pagesCell = newRow.insertCell(3);
         const languangeCell = newRow.insertCell(4);
         const editionCell = newRow.insertCell(5);
+        const deleteButton = newRow.insertCell(6);
 
         titleCell.textContent = book.title;
         authorCell.textContent = book.author;
@@ -53,9 +55,21 @@ function displayListOfBooks(){
         pagesCell.textContent = book.pages;
         languangeCell.textContent = book.language;
         editionCell.textContent = book.edition;
-
+        deleteButton.innerHTML = `<input type='button' value='X' id='delete-button' data-id='${i}' onclick='deleteID(event)'>`;
+        i++;
     }
 }
+
+function deleteID(event) {
+    idToDelete = event.target.getAttribute("data-id");
+    console.log(idToDelete);
+    myLibrary.splice(idToDelete, 1);
+    displayListOfBooks();
+}
+
+var dataTable = document.getElementById("data-table");
+dataTable.addEventListener("delete-button", console.log("here"));
+
 
 displayListOfBooks();
 console.table(myLibrary)
